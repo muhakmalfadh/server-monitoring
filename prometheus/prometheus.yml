@@ -1,0 +1,23 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets: ["prometheus:9090"]
+  - job_name: Monitoring Server  #Nama Grup
+    static_configs:
+      - targets: ["168.192.102.107:9100"]  #Alamat IP server yang dimonitor
+  - job_name: Monitored Server  #Nama Grup
+    static_configs:
+      - targets: ["168.192.102.183:9200", "168.192.103.76:9100"]  #Alamat IP server yang dimonitor
+############## Opsional Mengintegrasikan Uptime-Kuma dengan Prometheus #############
+  - job_name: 'uptime-kuma'
+    scrape_interval: 30s
+    scheme: http
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['uptime-kuma:3001']
+    basic_auth:
+      username: admin  # sesuaikan dengan username uptime-kuma yang dibuat
+      password: admin1  # sesuaikan dengan password uptime-kuma yang dibuat
